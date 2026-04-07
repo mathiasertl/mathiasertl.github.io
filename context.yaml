@@ -1,0 +1,6 @@
+# Variables shared across every page (used in _base.jinja or multiple templates).
+# Page-specific content lives directly in the respective src/*.jinja file.
+site:
+  name: "Mathias Ertl"
+  year: 2026
+  email: "mati@er.tl"

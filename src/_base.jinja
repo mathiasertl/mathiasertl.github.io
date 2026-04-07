@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}{{ site.name }}{% endblock %}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'ui-sans-serif', 'system-ui'],
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+</head>
+<body class="bg-stone-50 text-stone-800 min-h-screen font-sans antialiased">
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 w-full bg-stone-50/90 backdrop-blur-sm border-b border-stone-200 z-10">
+    <div class="max-w-2xl mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="index.html" class="text-sm font-medium tracking-wide text-stone-900 hover:text-stone-600 transition-colors">
+        {{ site.name }}
+      </a>
+      <div class="flex gap-6 text-sm text-stone-500">
+        {% set nav = [
+          ("index.html",  "Home",  "home"),
+          ("about.html",  "About", "about"),
+          ("links.html",  "Links", "links"),
+        ] %}
+        {% for href, label, key in nav %}
+          <a href="{{ href }}"
+             class="hover:text-stone-900 transition-colors{% if current_page == key %} font-medium text-stone-900{% endif %}">
+            {{ label }}
+          </a>
+        {% endfor %}
+      </div>
+    </div>
+  </nav>
+
+  {% block main %}{% endblock %}
+
+  <!-- Footer -->
+  <footer class="max-w-2xl mx-auto px-6 py-8 border-t border-stone-200 text-xs text-stone-400 flex justify-between">
+    <span>{{ site.name }} &copy; {{ site.year }}</span>
+    {% block footer_right %}<span>Made with plain HTML &amp; Tailwind</span>{% endblock %}
+  </footer>
+
+</body>
+</html>
