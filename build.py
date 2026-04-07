@@ -3,7 +3,7 @@
 Render src/**/*.jinja -> dist/ using context.yaml.
 
 Usage:
-    python build.py              # render all templates
+    python build.py              # fetch assets (if needed) + render all templates
     python build.py --watch      # render + re-render on file changes (requires watchdog)
 
 Templates whose filename starts with '_' are treated as partials/layouts
@@ -15,7 +15,9 @@ Dependencies:
 """
 
 import argparse
+import re
 import sys
+import urllib.request
 from pathlib import Path
 
 import yaml
@@ -24,6 +26,67 @@ from jinja2 import Environment, FileSystemLoader, StrictUndefined
 SRC = Path(__file__).parent / "src"
 DIST = Path(__file__).parent / "dist"
 CTX = Path(__file__).parent / "context.yaml"
+ASSETS = DIST / "assets"
+
+# ── Remote assets to localise ─────────────────────────────────────────────────
+
+TAILWIND_URL = "https://cdn.tailwindcss.com"
+TAILWIND_OUT = ASSETS / "tailwind.js"
+
+INTER_URL = (
+    "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap"
+)
+INTER_CSS_OUT = ASSETS / "inter.css"
+INTER_FONT_DIR = ASSETS / "fonts"
+
+# User-Agent that makes Google Fonts serve modern woff2 files.
+_CHROME_UA = (
+    "Mozilla/5.0 (X11; Linux x86_64) "
+    "AppleWebKit/537.36 (KHTML, like Gecko) "
+    "Chrome/124.0 Safari/537.36"
+)
+
+
+def _download(url: str, dest: Path, headers: dict | None = None) -> None:
+    """Download *url* to *dest*, creating parent directories as needed."""
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    req = urllib.request.Request(url, headers=headers or {})
+    with urllib.request.urlopen(req) as resp:
+        dest.write_bytes(resp.read())
+    print(f"  downloaded {dest.relative_to(DIST.parent)}")
+
+
+def fetch_assets() -> None:
+    """Download remote assets into dist/assets/ if not already present."""
+    ASSETS.mkdir(parents=True, exist_ok=True)
+
+    # ── Tailwind play CDN ────────────────────────────────────────────────────
+    if not TAILWIND_OUT.exists():
+        _download(TAILWIND_URL, TAILWIND_OUT, headers={"User-Agent": _CHROME_UA})
+    else:
+        print(f"  skipping {TAILWIND_OUT.relative_to(DIST.parent)} (already exists)")
+
+    # ── Inter font (Google Fonts) ────────────────────────────────────────────
+    if not INTER_CSS_OUT.exists():
+        INTER_FONT_DIR.mkdir(parents=True, exist_ok=True)
+
+        # Fetch the @font-face CSS with a browser UA to get woff2 URLs.
+        req = urllib.request.Request(INTER_URL, headers={"User-Agent": _CHROME_UA})
+        with urllib.request.urlopen(req) as resp:
+            css = resp.read().decode("utf-8")
+
+        # Download each referenced font file and rewrite the URL to a local path.
+        for font_url in re.findall(r"url\((https://fonts\.gstatic\.com/[^)]+)\)", css):
+            font_filename = font_url.rsplit("/", 1)[-1]
+            font_dest = INTER_FONT_DIR / font_filename
+            if not font_dest.exists():
+                _download(font_url, font_dest)
+            css = css.replace(font_url, f"fonts/{font_filename}")
+
+        INTER_CSS_OUT.write_text(css, encoding="utf-8")
+        print(f"  wrote     {INTER_CSS_OUT.relative_to(DIST.parent)}")
+    else:
+        print(f"  skipping {INTER_CSS_OUT.relative_to(DIST.parent)} (already exists)")
 
 
 def load_context() -> dict:
@@ -106,6 +169,7 @@ def watch():
         observer.schedule(RebuildHandler(), str(watch_dir), recursive=True)
 
     print(f"Watching {SRC} and {CTX} for changes. Press Ctrl+C to stop.\n")
+    fetch_assets()
     build_all()
     observer.start()
     try:
@@ -134,6 +198,7 @@ if __name__ == "__main__":
         watch()
     else:
         try:
+            fetch_assets()
             build_all()
         except Exception as exc:
             print(f"Build failed: {exc}", file=sys.stderr)
