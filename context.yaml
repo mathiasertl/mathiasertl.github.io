@@ -43,5 +43,5 @@ projects:
 pdfs:
   - path: cv.pdf
     label: Curriculum Vitae (Englisch)
-  - path: cv-de.pdf
-    label: Curriculum Vitae (Deutsch)
+#  - path: cv-de.pdf
+#    label: Curriculum Vitae (Deutsch)
