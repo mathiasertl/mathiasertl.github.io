@@ -19,6 +19,7 @@ import re
 import shutil
 import sys
 import urllib.request
+from datetime import date
 from pathlib import Path
 
 import yaml
@@ -92,7 +93,11 @@ def fetch_assets() -> None:
 
 def load_context() -> dict:
     with CTX.open(encoding="utf-8") as f:
-        return yaml.safe_load(f)
+        data = yaml.safe_load(f)
+    today = date.today()
+    data['year'] = today.year
+    data['datestamp'] = today.strftime('%Y-%m-%d')
+    return data
 
 
 def build_one(env: Environment, context: dict, template_path: Path) -> Path:
