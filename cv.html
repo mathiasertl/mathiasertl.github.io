@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Curriculum vitae — Mathias Ertl</title>
+  <link href="assets/inter.css" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'ui-sans-serif', 'system-ui'],
+          }
+        }
+      }
+    }
+  </script>
+  <script src="assets/tailwind.js"></script>
+</head>
+<body class="bg-stone-50 text-stone-800 min-h-screen font-sans antialiased">
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 w-full bg-stone-50/90 backdrop-blur-sm border-b border-stone-200 z-10">
+    <div class="max-w-2xl mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="index.html" class="text-sm font-medium tracking-wide text-stone-900 hover:text-stone-600 transition-colors">
+        Mathias Ertl
+      </a>
+      <div class="flex gap-6 text-sm text-stone-500">
+        
+        
+          <a href="index.html"
+             class="hover:text-stone-900 transition-colors">
+            Home
+          </a>
+        
+          <a href="cv.html"
+             class="hover:text-stone-900 transition-colors font-medium text-stone-900">
+            CV
+          </a>
+        
+          <a href="links.html"
+             class="hover:text-stone-900 transition-colors">
+            Links
+          </a>
+        
+      </div>
+    </div>
+  </nav>
+
+  
+<main class="max-w-2xl mx-auto px-6 pt-36 pb-24">
+
+  <h1 class="text-2xl font-light text-stone-900 mb-2 tracking-tight">Curriculum Vitae (CV)</h1>
+  <p class="text-stone-400 text-sm mb-14 font-light">Download my current CV.</p>
+
+  <!-- PDF download -->
+  <section class="mb-14">
+    <h2 class="text-xs font-medium uppercase tracking-widest text-stone-400 mb-5">Download as PDF</h2>
+    <ul class="space-y-3">
+      
+      <li>
+        <a href="/static/ertl-cv.pdf" target="_blank" rel="noopener"
+           class="flex items-center justify-between px-5 py-4 bg-white border border-stone-200 rounded-xl hover:border-stone-400 hover:shadow-sm transition-all group">
+          <div class="flex items-center gap-4">
+            
+  
+    <svg class="w-5 h-5 text-stone-400 group-hover:text-stone-700 transition-colors" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/>
+    </svg>
+  
+
+            <span class="text-stone-700 font-light group-hover:text-stone-900 transition-colors">Curriculum Vitae (Englisch)</span>
+          </div>
+          <span class="text-xs text-stone-400 group-hover:text-stone-600 transition-colors">ertl-cv.pdf</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/static/ertl-cv-de.pdf" target="_blank" rel="noopener"
+           class="flex items-center justify-between px-5 py-4 bg-white border border-stone-200 rounded-xl hover:border-stone-400 hover:shadow-sm transition-all group">
+          <div class="flex items-center gap-4">
+            
+  
+    <svg class="w-5 h-5 text-stone-400 group-hover:text-stone-700 transition-colors" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/>
+    </svg>
+  
+
+            <span class="text-stone-700 font-light group-hover:text-stone-900 transition-colors">Curriculum Vitae (Deutsch)</span>
+          </div>
+          <span class="text-xs text-stone-400 group-hover:text-stone-600 transition-colors">ertl-cv-de.pdf</span>
+        </a>
+      </li>
+      
+    </ul>
+  </section>
+
+  <!-- source -->
+  <section class="mb-14">
+    <h2 class="text-xs font-medium uppercase tracking-widest text-stone-400 mb-5">LaTeX source</h2>
+    <div class="space-y-4 text-stone-600 leading-relaxed font-light">
+      <p>
+         Find the LaTeX source at
+         <a href="https://github.com/mathiasertl/cv/"  class="underline underline-offset-2 hover:text-stone-900 transition-colors">https://github.com/mathiasertl/cv/</a>.
+      </p>
+    </div>
+  </section>
+
+</main>
+
+
+  <!-- Footer -->
+  <footer class="max-w-2xl mx-auto px-6 py-8 border-t border-stone-200 text-xs text-stone-400 flex justify-between">
+    <span>Mathias Ertl &copy; 2026</span>
+    
+  <a href="index.html" class="hover:text-stone-600 transition-colors">Back to home</a>
+
+  </footer>
+
+</body>
+</html>

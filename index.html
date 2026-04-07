@@ -1,0 +1,125 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mathias Ertl</title>
+  <link href="assets/inter.css" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'ui-sans-serif', 'system-ui'],
+          }
+        }
+      }
+    }
+  </script>
+  <script src="assets/tailwind.js"></script>
+</head>
+<body class="bg-stone-50 text-stone-800 min-h-screen font-sans antialiased">
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 w-full bg-stone-50/90 backdrop-blur-sm border-b border-stone-200 z-10">
+    <div class="max-w-2xl mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="index.html" class="text-sm font-medium tracking-wide text-stone-900 hover:text-stone-600 transition-colors">
+        Mathias Ertl
+      </a>
+      <div class="flex gap-6 text-sm text-stone-500">
+        
+        
+          <a href="index.html"
+             class="hover:text-stone-900 transition-colors font-medium text-stone-900">
+            Home
+          </a>
+        
+          <a href="cv.html"
+             class="hover:text-stone-900 transition-colors">
+            CV
+          </a>
+        
+          <a href="links.html"
+             class="hover:text-stone-900 transition-colors">
+            Links
+          </a>
+        
+      </div>
+    </div>
+  </nav>
+
+  
+<main class="max-w-2xl mx-auto px-6 pt-36 pb-24">
+
+  <div class="mb-16">
+    <!-- Avatar: replace the placeholder div with an <img> tag when you have a photo -->
+    <div class="w-16 h-16 rounded-full mb-10 overflow-hidden">
+      <img src="static/avatar.jpg" class="w-full h-full object-cover" alt="Mathias Ertl" />
+    </div>
+
+    <h1 class="text-3xl font-light text-stone-900 mb-3 tracking-tight">
+      Hi, I'm <span class="font-medium">Mathias Ertl</span>.
+    </h1>
+    <p class="text-lg text-stone-500 font-light leading-relaxed">
+      Senior software engineer &amp; team lead, based in Vienna, Austria.
+    </p>
+  </div>
+
+  <!-- Intro paragraphs — edit freely -->
+  <section class="mb-14 space-y-4 text-stone-600 leading-relaxed font-light">
+    <p>
+      I currently work at <a href="https://www.ttcontrol.com/" class="underline underline-offset-2 hover:text-stone-900 transition-colors">TTControl</a>,
+      where I lead an international team focusing on integrating AI into our
+      development workflow, Linux application development, IT security and
+      our CI/CD infrastructure.
+    </p>
+    <p>
+      As team lead I care about an open and friendly work atmosphere - I believe
+      you can only perform to your full potential if you feel valued.  I value
+      pragmatism but also a commitment to quality; balancing the two yields
+      good software with reasonable effort.
+    </p>
+    <p>
+      As a software engineer I specialize in Python and Django, cloud
+      computing and backend systems, with deep knowledge of IT security and
+      Linux systems.
+    </p>
+    <p>
+      When not working, I contribute to open source projects (most prominently
+      <a href="https://github.com/mathiasertl/django-ca/" class="underline
+      underline-offset-2 hover:text-stone-900
+      transition-colors">django-ca</a>).  I'm a local activist and elected
+      member of the district council, trying
+      to make my local area a better place. I also enjoy gardening, cycling
+      and reading.
+    </p>
+  </section>
+
+  <!-- Quick-link pills -->
+  <section class="flex flex-wrap gap-3">
+    <a href="cv.html"
+       class="px-4 py-2 text-sm border border-stone-300 rounded-full text-stone-600 hover:border-stone-600 hover:text-stone-900 transition-colors">
+      CV
+    </a>
+    <a href="links.html"
+       class="px-4 py-2 text-sm border border-stone-300 rounded-full text-stone-600 hover:border-stone-600 hover:text-stone-900 transition-colors">
+      Find me online
+    </a>
+    <a href="mailto:mati@er.tl"
+       class="px-4 py-2 text-sm border border-stone-300 rounded-full text-stone-600 hover:border-stone-600 hover:text-stone-900 transition-colors">
+      Get in touch
+    </a>
+  </section>
+
+</main>
+
+
+  <!-- Footer -->
+  <footer class="max-w-2xl mx-auto px-6 py-8 border-t border-stone-200 text-xs text-stone-400 flex justify-between">
+    <span>Mathias Ertl &copy; 2026</span>
+    <span>Made with plain HTML &amp; Tailwind</span>
+  </footer>
+
+</body>
+</html>
