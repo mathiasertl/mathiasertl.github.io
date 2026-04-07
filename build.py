@@ -141,6 +141,11 @@ def build_all(verbose: bool = True) -> list[Path]:
 
 # ── Watch mode ────────────────────────────────────────────────────────────────
 
+# Editors (vim, emacs, …) fire several inotify events per save: creating a
+# temp file, renaming it over the original, updating the swap file, etc.
+# A short debounce timer collapses that burst into a single rebuild.
+_DEBOUNCE_SECONDS = 0.5
+
 
 def watch():
     try:
@@ -150,23 +155,55 @@ def watch():
         print("watchdog is not installed. Run:  pip install watchdog", file=sys.stderr)
         sys.exit(1)
 
+    import threading
     import time
 
+    # Shared debounce state.
+    _timer: threading.Timer | None = None
+    _lock = threading.Lock()
+
+    def _schedule_rebuild(trigger: str) -> None:
+        nonlocal _timer
+        with _lock:
+            if _timer is not None:
+                _timer.cancel()
+            _timer = threading.Timer(_DEBOUNCE_SECONDS, _do_rebuild, args=[trigger])
+            _timer.start()
+
+    def _do_rebuild(trigger: str) -> None:
+        print(f"\n[changed] {trigger}")
+        try:
+            build_all()
+        except Exception as exc:
+            print(f"[error] {exc}", file=sys.stderr)
+
     class RebuildHandler(FileSystemEventHandler):
-        def on_any_event(self, event):
+        def _handle(self, event):
             if event.is_directory:
                 return
             path = Path(event.src_path)
-            if path.suffix in {".jinja", ".yaml"}:
-                print(f"\n[changed] {path.name}")
-                try:
-                    build_all()
-                except Exception as exc:
-                    print(f"[error] {exc}", file=sys.stderr)
+            if args.debug:
+                print(f"  [event] {type(event).__name__:<25} {path}", flush=True)
+            # Ignore hidden files (vim .swp/.swn, emacs .#file) and backups (file~).
+            if path.name.startswith(".") or path.name.endswith("~"):
+                return
+            if path.suffix not in {".jinja", ".yaml"}:
+                return
+            _schedule_rebuild(path.name)
+
+        # Only respond to write events (modified/created).
+        # on_any_event would also fire for FileOpenedEvent / FileClosedNoWriteEvent
+        # when Jinja reads the templates during a build, causing an infinite loop.
+        on_modified = _handle
+        on_created = _handle
 
     observer = Observer()
-    for watch_dir in (SRC, CTX.parent):
-        observer.schedule(RebuildHandler(), str(watch_dir), recursive=True)
+    handler = RebuildHandler()
+    # Watch src/ recursively for .jinja changes.
+    observer.schedule(handler, str(SRC), recursive=True)
+    # Watch the project root non-recursively for context.yaml changes.
+    # Non-recursive avoids re-watching src/ and dist/ a second time.
+    observer.schedule(handler, str(CTX.parent), recursive=False)
 
     print(f"Watching {SRC} and {CTX} for changes. Press Ctrl+C to stop.\n")
     fetch_assets()
@@ -191,6 +228,11 @@ if __name__ == "__main__":
         "-w",
         action="store_true",
         help="Re-build automatically when source files change.",
+    )
+    parser.add_argument(
+        "--debug",
+        action="store_true",
+        help="Print every filesystem event received by the watcher.",
     )
     args = parser.parse_args()
 

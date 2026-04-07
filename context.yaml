@@ -4,3 +4,14 @@ site:
   name: "Mathias Ertl"
   year: 2026
   email: "mati@er.tl"
+
+socials:
+  - label: GitHub
+    handle: mathiasertl
+    url: https://github.com/mathiasertl
+    icon: github
+
+projects:
+  - name: django-ca
+    url: https://github.com/mathiasertl/django-ca/
+    description: A TLS certificate authority with CRL, OCSP, HSM and ACMEv2 support and more.
