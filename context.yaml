@@ -31,7 +31,7 @@ projects:
     url: https://github.com/mathiasertl/structured-tutorials/
     description: Tutorials as YAML files, executable on your system or renderable as Sphinx documentation.
   - name: hp
-    url: https://github.com/mathiasertl/hp/
+    url: https://github.com/mathiasertl/mathiasertl.github.io
     description: This simple website.
   - name: fabric
     url: https://github.com/mathiasertl/fabric/
