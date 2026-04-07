@@ -19,7 +19,7 @@ socials:
     url: https://bsky.app/profile/er.tl
     icon: bluesky
   - label: Instagram
-    handle: er.tl
+    handle: matiertl
     url: https://www.instagram.com/matiertl/
     icon: instagram
 
@@ -42,4 +42,6 @@ projects:
 
 pdfs:
   - path: cv.pdf
-    label: Curriculum vitae (englisch)
+    label: Curriculum Vitae (Englisch)
+  - path: cv-de.pdf
+    label: Curriculum Vitae (Deutsch)
