@@ -10,8 +10,36 @@ socials:
     handle: mathiasertl
     url: https://github.com/mathiasertl
     icon: github
+  - label: LinkedIn
+    handle: Mathias Ertl
+    url: https://www.linkedin.com/in/mathias-ertl-a76a9145/
+    icon: linkedin
+  - label: BlueSky
+    handle: er.tl
+    url: https://bsky.app/profile/er.tl
+    icon: bluesky
+  - label: Instagram
+    handle: er.tl
+    url: https://www.instagram.com/matiertl/
+    icon: instagram
 
 projects:
   - name: django-ca
     url: https://github.com/mathiasertl/django-ca/
     description: A TLS certificate authority with CRL, OCSP, HSM and ACMEv2 support and more.
+  - name: structured-tutorials
+    url: https://github.com/mathiasertl/structured-tutorials/
+    description: Tutorials as YAML files, executable on your system or renderable as Sphinx documentation.
+  - name: hp
+    url: https://github.com/mathiasertl/hp/
+    description: This simple website.
+  - name: fabric
+    url: https://github.com/mathiasertl/fabric/
+    description: Python3 fork of Fabric (archived, adopted upstream).
+  - name: Grüne Ottakring
+    url: https://ottakring.gruene.at/
+    description: I'm a member of the district council for Ottakring.
+
+pdfs:
+  - path: cv.pdf
+    label: Curriculum vitae (englisch)

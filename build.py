@@ -16,6 +16,7 @@ Dependencies:
 
 import argparse
 import re
+import shutil
 import sys
 import urllib.request
 from pathlib import Path
@@ -133,6 +134,12 @@ def build_all(verbose: bool = True) -> list[Path]:
         outputs.append(out)
         if verbose:
             print(f"  {tmpl.relative_to(SRC)!s:35s} -> {out}")
+
+    static_src = SRC / "static"
+    if static_src.is_dir():
+        shutil.copytree(static_src, DIST / "static", dirs_exist_ok=True)
+        if verbose:
+            print(f"  copied {static_src} -> {DIST / 'static'}")
 
     if verbose:
         print(f"\nBuilt {len(outputs)} file(s) into {DIST}/")
