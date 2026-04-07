@@ -41,7 +41,7 @@ projects:
     description: I'm a member of the district council for Ottakring.
 
 pdfs:
-  - path: cv.pdf
+  - path: ertl-cv.pdf
     label: Curriculum Vitae (Englisch)
-#  - path: cv-de.pdf
-#    label: Curriculum Vitae (Deutsch)
+  - path: ertl-cv-de.pdf
+    label: Curriculum Vitae (Deutsch)
