@@ -41,6 +41,6 @@ projects:
 
 pdfs:
   - path: ertl-cv.pdf
-    label: Curriculum Vitae (Englisch)
+    label: Curriculum Vitae (English)
   - path: ertl-cv-de.pdf
     label: Curriculum Vitae (Deutsch)
